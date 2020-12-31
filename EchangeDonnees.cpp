@@ -28,6 +28,7 @@ void AEchangeDonnees::Tick(float DeltaTime)
 
 void AEchangeDonnees::requestRandomFact()
 {
+	GEngine->AddOnScreenDebugMessage(1, 10.0f, FColor::Green, "RequestRandomFact()", true);
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> demande = http->CreateRequest();
 	demande->SetURL("https://uselessfacts.jsph.pl/random.json?language=en");
 	demande->SetVerb("GET");
@@ -43,8 +44,14 @@ void AEchangeDonnees::getRandomFact(FHttpRequestPtr demande, FHttpResponsePtr re
 	if (FJsonSerializer::Deserialize(lecteur, json))
 	{
 		FString fact = json->AsObject()->GetStringField("text");
+		this->randomFact = fact;
 		GEngine->AddOnScreenDebugMessage(1, 10.0f, FColor::Green, fact, true);
 	}
+}
+
+FString AEchangeDonnees::getActualFact()
+{
+	return this->randomFact;
 }
 
 

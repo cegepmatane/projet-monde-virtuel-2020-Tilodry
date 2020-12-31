@@ -22,9 +22,16 @@ public:
 	AEchangeDonnees();
 	FHttpModule* http;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Phrase")
+	FString randomFact = FString("En attente d'un fact");
+
+	UFUNCTION(BlueprintCallable, Category = "Phrase")
 	void requestRandomFact();
 
 	void getRandomFact(FHttpRequestPtr demande, FHttpResponsePtr reponse, bool success);
+
+	UFUNCTION(BlueprintCallable, Category = "Phrase")
+	FString getActualFact();
 
 protected:
 	// Called when the game starts or when spawned
